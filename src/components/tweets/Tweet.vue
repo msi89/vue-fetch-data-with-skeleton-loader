@@ -69,12 +69,14 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: {
     tweet: { type: Object, required: true },
-    theme: { type: String, required: "light" },
-  },
-};
+    theme: { type: String, required: 'light' }
+  }
+})
 </script>
 
 <style scoped>
@@ -99,13 +101,16 @@ export default {
   margin-right: 10px;
 }
 .tweet-image-box img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 50%;
 }
 .tweet-quote {
   margin: 15px 0;
+}
+.tweet-title > span {
+  margin-right: 10px;
 }
 .font-semibold {
   font-weight: 600;

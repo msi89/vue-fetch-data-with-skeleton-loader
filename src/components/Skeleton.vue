@@ -1,49 +1,52 @@
 <template>
-  <div class="skeleton" :style="_styles"></div>
+  <div class="skeleton" :style="styles"></div>
 </template>
 
 <script>
-export default {
-  name: "Skeleton",
+import { computed, defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'Skeleton',
   props: {
-    width: { type: [String, Number], default: "100%" },
+    width: { type: [String, Number], default: '100%' },
     height: { type: [String, Number], default: 10 },
     margin: { type: [String, Number], default: 5 },
     corner: { type: [String, Number], default: 1 },
-    theme: { type: String, default: "light" },
+    theme: { type: String, default: 'light' }
   },
-  computed: {
-    _styles() {
-      return {
-        width: this._width,
-        height: this._height,
-        margin: this._margin,
-        borderRadius: this._corner,
-        background: this._background,
-      };
-    },
-    _width() {
-      return this.isNumeric(this.width) ? this.width + "px" : this.width;
-    },
-    _height() {
-      return this.isNumeric(this.height) ? this.height + "px" : this.height;
-    },
-    _margin() {
-      return this.isNumeric(this.margin) ? this.margin + "px" : this.margin;
-    },
-    _corner() {
-      return this.isNumeric(this.corner) ? this.corner + "px" : this.corner;
-    },
-    _background() {
-      return this.theme === "dark" ? "rgba(255,255,255, 0.2)" : "#dddbdd";
-    },
-  },
-  methods: {
-    isNumeric(value) {
-      return /^\d+$/.test(value);
-    },
-  },
-};
+  setup(props) {
+    const _margin = computed(() =>
+      isNumeric(props.margin) ? props.margin + 'px' : props.margin
+    )
+    const _width = computed(() =>
+      isNumeric(props.width) ? props.width + 'px' : props.width
+    )
+    const _height = computed(() =>
+      isNumeric(props.height) ? props.height + 'px' : props.height
+    )
+    const _corner = computed(() =>
+      isNumeric(props.corner) ? props.corner + 'px' : props.corner
+    )
+    const _background = computed(() =>
+      props.theme === 'dark' ? 'rgba(255,255,255, 0.2)' : '#dddbdd'
+    )
+    const styles = computed(() => ({
+      width: _width.value,
+      height: _height.value,
+      margin: _margin.value,
+      borderRadius: _corner.value,
+      background: _background.value
+    }))
+
+    function isNumeric(value) {
+      return /^\d+$/.test(value)
+    }
+
+    return {
+      styles
+    }
+  }
+})
 </script>
 
 <style>
@@ -52,7 +55,7 @@ export default {
   overflow: hidden;
 }
 .skeleton::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

@@ -1,34 +1,47 @@
 <template>
   <div class="flex tweet-skeleton" :class="theme" v-for="n in count" :key="n">
-    <Skeleton height="60" width="60" :theme="theme" corner="50%" />
+    <div>
+      <skeleton height="90" width="90" corner="90" :theme="theme" />
+    </div>
     <div class="flex flex-col">
-      <Skeleton height="20" :theme="theme" />
-      <Skeleton :theme="theme" />
-      <Skeleton :theme="theme" />
+      <Skeleton height="20" :theme="theme" corner="10" />
+      <Skeleton :theme="theme" corner="10" />
+      <Skeleton :theme="theme" corner="10" />
       <div class="flex space-between ac" style="margin-top: 20px">
-        <Skeleton height="20" width="25" :theme="theme" corner="5" />
-        <Skeleton height="20" width="25" :theme="theme" corner="5" />
-        <Skeleton height="20" width="25" :theme="theme" corner="5" />
+        <div>
+          <Skeleton height="20" width="55" :theme="theme" corner="20" />
+        </div>
+        <div>
+          <Skeleton height="20" width="55" :theme="theme" corner="20" />
+        </div>
+        <div>
+          <Skeleton height="20" width="55" :theme="theme" corner="20" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Skeleton from "../Skeleton";
-export default {
+import { defineComponent } from 'vue'
+import Skeleton from '../Skeleton'
+export default defineComponent({
   components: { Skeleton },
   props: {
     count: { type: Number, default: 1 },
-    theme: { type: String, default: "light" },
-  },
-};
+    theme: { type: String, default: 'light' }
+  }
+})
 </script>
 
 <style scoped>
 .tweet-skeleton {
   padding: 10px;
   background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+.tweet-skeleton:last-child {
+  border-bottom-color: transparent;
 }
 .tweet-skeleton.dark {
   background: rgba(0, 0, 0, 0.2);

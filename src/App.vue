@@ -1,63 +1,31 @@
 <template>
   <div class="wrapper" :class="theme">
     <div class="container">
-      <skeleton-loader :count="4" v-if="loading" :theme="theme" />
-      <div v-else-if="error" class="error">{{ error }}</div>
-      <div v-else>
-        <tweet
-          v-for="tweet in tweets"
-          :key="tweet.id"
-          :tweet="tweet"
-          :theme="theme"
-        />
+      <div style=" text-align:center">
+        <h1>Tweets</h1>
       </div>
     </div>
+    <tweet-view :theme="theme" />
   </div>
 </template>
 
 <script>
-import SkeletonLoader from "./components/tweets/Loader.vue";
-import Tweet from "./components/tweets/Tweet.vue";
-import axios from "axios";
+import TweetView from './views/tweets.vue'
+import { defineComponent, ref } from 'vue'
 
-export default {
-  name: "App",
+export default defineComponent({
+  name: 'App',
   components: {
-    SkeletonLoader,
-    Tweet,
+    TweetView
   },
-  data() {
+  setup() {
+    let theme = ref('light')
+
     return {
-      tweets: [],
-      loading: false,
-      error: null,
-      theme: "dark",
-    };
-  },
-  created() {
-    this.fetchTweets();
-  },
-  methods: {
-    fetchTweets() {
-      this.loading = true;
-      this.error = "";
-      axios
-        .get("http://localhost:8000/api/tweets")
-        .then((response) => {
-          console.log(response);
-          setTimeout(() => {
-            this.tweets = response.data;
-            this.loading = false;
-          }, 2000);
-        })
-        .catch((error) => {
-          console.error(error.response);
-          this.loading = false;
-          this.error = error.response.status + ": " + error.response.statusText;
-        });
-    },
-  },
-};
+      theme
+    }
+  }
+})
 </script>
 
 <style>
@@ -68,7 +36,7 @@ export default {
 }
 
 body {
-  font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .wrapper {
   position: absolute;
@@ -80,7 +48,6 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
 }
 .container {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   width: 60%;
   margin: 60px auto;
 }
