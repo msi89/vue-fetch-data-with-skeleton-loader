@@ -1,9 +1,16 @@
 <template>
-  <div class="container">
-    <skeleton-loader :count="5" v-if="loading" />
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else>
-      <tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+  <div class="wrapper" :class="theme">
+    <div class="container">
+      <skeleton-loader :count="4" v-if="loading" :theme="theme" />
+      <div v-else-if="error" class="error">{{ error }}</div>
+      <div v-else>
+        <tweet
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :tweet="tweet"
+          :theme="theme"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +31,7 @@ export default {
       tweets: [],
       loading: false,
       error: null,
+      theme: "dark",
     };
   },
   created() {
@@ -61,10 +69,16 @@ export default {
 
 body {
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  /* background-color: #f1f1f1; */
+}
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;
+}
+.wrapper.dark {
   background-color: rgba(0, 0, 0, 0.8);
 }
-
 .container {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   width: 60%;

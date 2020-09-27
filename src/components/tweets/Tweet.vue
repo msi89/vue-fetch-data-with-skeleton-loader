@@ -1,5 +1,5 @@
 <template>
-  <div class="tweet dark flex" v-if="tweet">
+  <div class="tweet flex" :class="theme" v-if="tweet">
     <div class="tweet-image-box">
       <img :src="tweet.avatar" alt="avatar" class="rounded-full" />
     </div>
@@ -70,7 +70,10 @@
 
 <script>
 export default {
-  props: { tweet: { type: Object, required: true } },
+  props: {
+    tweet: { type: Object, required: true },
+    theme: { type: String, required: "light" },
+  },
 };
 </script>
 

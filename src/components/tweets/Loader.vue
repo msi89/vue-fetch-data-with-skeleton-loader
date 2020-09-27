@@ -2,7 +2,7 @@
   <div class="flex tweet-skeleton" :class="theme" v-for="n in count" :key="n">
     <Skeleton height="60" width="60" :theme="theme" corner="50%" />
     <div class="flex flex-col">
-      <Skeleton height="30" :theme="theme" />
+      <Skeleton height="20" :theme="theme" />
       <Skeleton :theme="theme" />
       <Skeleton :theme="theme" />
       <div class="flex space-between ac" style="margin-top: 20px">
